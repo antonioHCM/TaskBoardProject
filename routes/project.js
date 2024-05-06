@@ -1,62 +1,64 @@
 const router = require("express").Router();
-const project = require("../models/project");
+const Project = require("../models/project");
 const { verifyToken } = require("../validation");
 
-//Crud operations
-
-
-//GET
+// GET all projects
 router.get("/", (req, res) => {
-    project.find()
-    .then(data => { res.send(data)})
-    .catch(err =>{res.status(500).send( {message: err.message });})
+    Project.find()
+        .then(data => res.send(data))
+        .catch(err => res.status(500).send({ message: err.message }));
 });
 
-//GET by id
-router.get("/", (req, res) => {
-    project.findById(req.params.id)
-    .then(data => { res.send(data)})
-    .catch(err =>{res.status(500).send( {message: err.message });})
+// GET project by ID
+router.get("/:id", (req, res) => {
+    const projectId = req.params.id;
+
+    Project.findById(projectId)
+        .then(data => {
+            if (!data)
+                res.status(404).send({ message: "Project with id=" + projectId + " not found" });
+            else
+                res.send(data);
+        })
+        .catch(err => res.status(500).send({ message: err.message }));
 });
 
-//POST
+// POST create a new project
 router.post("/", verifyToken, (req, res) => {
-    date = req.body;
+    const projectData = req.body;
 
-    project.create(date)
-    .then(data => { res.send(data)})
-    .catch(err =>{res.status(500).send( {message: err.message });})
+    Project.create(projectData)
+        .then(data => res.send(data))
+        .catch(err => res.status(500).send({ message: err.message }));
 });
-//PUT
-router.put("/:projectID", verifyToken, (req, res) => {
-    const projectID = req.params.projectID;
 
-    project.findByIdAndUpdate(projectID, req.body)
+// PUT update a project by ID
+router.put("/:projectId", verifyToken, (req, res) => {
+    const projectId = req.params.projectId;
+    const newData = req.body;
+
+    Project.findByIdAndUpdate(projectId, newData)
         .then(data => {
             if (!data)
-                res.status(404).send({ message: "Cannot update Project with id=" + projectID + ".  not found!" });
+                res.status(404).send({ message: "Project with id=" + projectId + " not found" });
             else
-                res.send({ message: "Project was updated successfully." });
+                res.send({ message: "Project with id=" + projectId + " was updated successfully" });
         })
-        .catch(err => {
-            res.status(500).send({ message: "Error updating workspace with id=" + projectID });
-        });
-
+        .catch(err => res.status(500).send({ message: err.message }));
 });
-//DELETE 
-router.delete("/:projectID",verifyToken, (req, res) => {
-    const projectID = req.params.projectID;
 
-    project.findByIdAndDelete(projectID)
+// DELETE delete a project by ID
+router.delete("/:projectId", verifyToken, (req, res) => {
+    const projectId = req.params.projectId;
+
+    Project.findByIdAndDelete(projectId)
         .then(data => {
             if (!data)
-                res.status(404).send({ message: "Cannot delete the Project with id=" + projectID + ".  not found!" });
+                res.status(404).send({ message: "Project with id=" + projectId + " not found" });
             else
-                res.send({ message: "Project was deleted successfully." });
+                res.send({ message: "Project with id=" + projectId + " was deleted successfully" });
         })
-        .catch(err => {
-            res.status(500).send({ message: "Error deleting Project with id=" + projectID });
-        });
-
+        .catch(err => res.status(500).send({ message: err.message }));
 });
+
 module.exports = router;

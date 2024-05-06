@@ -14,7 +14,8 @@ let userSchema = new Schema(
             type: String,
             required: true,
             min: 6,
-            max: 255
+            max: 255,
+            unique: true
         },
         password: {
             type: String,
@@ -25,6 +26,10 @@ let userSchema = new Schema(
         date: {
             type: Date,
             default: Date.now
+        },
+        project: {
+            type: Schema.Types.ObjectId,
+            ref: "project"
         }
     }
 )

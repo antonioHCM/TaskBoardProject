@@ -7,8 +7,17 @@ const Schema = mongoose.Schema;
 let rowSchema = new Schema(
     {
         
-        description: {type: String},
-        position: {type: Number}
+        description: {
+            type: String,
+            required: true
+        },
+        project: {
+            type: Schema.Types.ObjectId,
+            ref: "project",
+            required: true
+        },
+        position: {type: Number},
+        content: {type: String}
         
     }
 )

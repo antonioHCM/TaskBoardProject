@@ -6,8 +6,16 @@ const Schema = mongoose.Schema;
 
 let columnSchema = new Schema(
     {
-        name: {type: String},
-        positon: {type: Number},
+        name: {
+            type: String,
+            required: true
+        },
+        project: {
+            type: Schema.Types.ObjectId,
+            ref: "project",
+            required: true
+        },
+        position: {type: Number},
         
         
     }
