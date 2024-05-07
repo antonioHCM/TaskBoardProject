@@ -1,0 +1,209 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Task Board API
+paths:
+  /api/project:
+    get:
+      summary: Get all projects
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      summary: Create a new project
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+  /api/project/{id}:
+    get:
+      summary: Get project by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the project to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Project not found
+    put:
+      summary: Update project by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the project to update
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Project object that needs to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Project updated successfully
+        '404':
+          description: Project not found
+    delete:
+      summary: Delete project by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the project to delete
+          required: true
+          type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Project deleted successfully
+        '404':
+          description: Project not found
+  /api/row:
+    get:
+      summary: Get all rows
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      summary: Create a new row
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+  /api/row/{id}:
+    get:
+      summary: Get row by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the row to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Row not found
+    put:
+      summary: Update row by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the row to update
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Row object that needs to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/Row'
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Row updated successfully
+        '404':
+          description: Row not found
+    delete:
+      summary: Delete row by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the row to delete
+          required: true
+          type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Row deleted successfully
+        '404':
+          description: Row not found
+  /api/column:
+    get:
+      summary: Get all columns
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      summary: Create a new column
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+  /api/column/{id}:
+    get:
+      summary: Get column by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the column to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Column not found
+    put:
+      summary: Update column by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the column to update
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Column object that needs to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/Column'
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Column updated successfully
+        '404':
+          description: Column not found
+    delete:
+      summary: Delete column by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the column to delete
+          required: true
+          type: string
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Column deleted successfully
+        '404':
+          description: Column not found
+definitions:
+  Project:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+  Row:
+    type: object
+    properties:
+      id:
+       
