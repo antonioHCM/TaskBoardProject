@@ -42,13 +42,13 @@ router.post("/register", async (req, res) =>{
 });
 
 // GET User by ID
-router.get("/user/:id", verifyToken, (req, res) => {
-    const id = req.params.id;
+router.get("/:id", verifyToken, (req, res) => {
+    const UserId = req.params.id;
 
-    User.findById(id)
+    User.findById(UserId)
         .then(data => {
             if (!data)
-                res.status(404).send({ message: "User with id=" + id + " not found" });
+                res.status(404).send({ message: "User with id=" + UserId + " not found" });
             else
                 res.send(data);
         })
