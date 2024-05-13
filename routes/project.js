@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 });
 
 // GET project by ID
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
     const projectId = req.params.id;
 
     Project.findById(projectId)
