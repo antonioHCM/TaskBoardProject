@@ -3,6 +3,7 @@ const User = require('../models/user');
 const {registerValidation, loginValidation } = require('../validation');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { verifyToken } = require("../validation");
 
 //Registration route
 router.post("/register", async (req, res) =>{
@@ -40,6 +41,19 @@ router.post("/register", async (req, res) =>{
     }
 });
 
+// GET User by ID
+router.get("/user/:id", verifyToken, (req, res) => {
+    const id = req.params.id;
+
+    User.findById(id)
+        .then(data => {
+            if (!data)
+                res.status(404).send({ message: "User with id=" + id + " not found" });
+            else
+                res.send(data);
+        })
+        .catch(err => res.status(500).send({ message: err.message }));
+});
     
 //Log in route
 router.post("/login", async (req, res) =>{
