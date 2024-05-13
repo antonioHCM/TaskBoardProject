@@ -1,6 +1,7 @@
 const express = require ("express");
 const mongoose = require ("mongoose");
 const bodyParser = require ("body-parser");
+const cors = require('cors');
 const app = express();
 
 //swagger
@@ -11,12 +12,7 @@ const swaggerDefinition = yaml.load('./swagger.yaml');
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 //Cors handle
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE"); // If using .fetch and not axios
-    res.header("Access-Control-Allow-Headers", "auth-token, Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  })
+app.use(cors());
 //import routes
 const projectRoutes = require("./routes/project")
 const rowRoutes = require("./routes/row")
