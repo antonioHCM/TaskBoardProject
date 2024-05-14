@@ -22,6 +22,27 @@ router.get("/:id", verifyToken, (req, res) => {
         })
         .catch(err => res.status(500).send({ message: err.message }));
 });
+// GET project by UserID
+router.get("/user/:id", verifyToken, async (req, res) => {
+    try {
+        // Get user ID from token (you need to implement this)
+        const userId = req.user.id; // Assuming you have middleware to extract user ID from token
+        
+        // Query database to find projects where the user is either the owner or a contributor
+        const projects = await Project.find({
+          $or: [
+            { owner: userId },
+            { 'contributors.user': userId }
+          ]
+        });
+    
+        // Return the projects found
+        res.json(projects);
+      } catch (error) {
+        console.error('Error fetching user projects:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    });
 
 // POST create a new project
 router.post("/", verifyToken, (req, res) => {
