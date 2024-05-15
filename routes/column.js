@@ -30,7 +30,7 @@ router.get("/:id/rows", verifyToken, async (req, res) => {
       const rows = await Row.find({ column: id });
   
       if (!rows || rows.length === 0) {
-        return res.status(404).send({ message: "Columns for project id=" + id + " not found" });
+        return res.status(404).send({ message: "Row for project id=" + id + " not found" });
       }
   
       res.send(rows);
