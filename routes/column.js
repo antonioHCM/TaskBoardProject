@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Column = require("../models/column");
+const Row = require("../models/row");
 const { verifyToken } = require("../validation");
 
 // GET all columns
@@ -22,6 +23,21 @@ router.get("/:id", (req, res) => {
         })
         .catch(err => res.status(500).send({ message: err.message }));
 });
+router.get("/:id/rows", verifyToken, async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const rows = await Row.find({ column: id });
+  
+      if (!rows || rows.length === 0) {
+        return res.status(404).send({ message: "Columns for project id=" + id + " not found" });
+      }
+  
+      res.send(rows);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  });
 
 // POST create a new column
 router.post("/", verifyToken, (req, res) => {

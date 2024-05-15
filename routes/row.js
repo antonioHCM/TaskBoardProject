@@ -22,7 +22,19 @@ router.get("/:id", (req, res) => {
         })
         .catch(err => res.status(500).send({ message: err.message }));
 });
+// GET column by project ID
+router.get("column/:id/rows",verifyToken, (req, res) => {
+    const id = req.params.id;
 
+    Row.findById(id)
+        .then(data => {
+            if (!data)
+                res.status(404).send({ message: "Column with id=" + id + " not found" });
+            else
+                res.send(data);
+        })
+        .catch(err => res.status(500).send({ message: err.message }));
+});
 // POST create a new row
 router.post("/", verifyToken, (req, res) => {
     const rowData = req.body;
