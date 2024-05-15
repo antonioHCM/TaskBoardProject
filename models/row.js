@@ -11,9 +11,9 @@ let rowSchema = new Schema(
             type: String,
             required: true
         },
-        project: {
+        column: {
             type: Schema.Types.ObjectId,
-            ref: "project",
+            ref: "column",
             required: true
         },
         position: {type: Number},

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Project = require("../models/project");
+const Column = require("../models/column")
 const { verifyToken } = require("../validation");
 
 // GET all projects
@@ -22,11 +23,11 @@ router.get("/:id", verifyToken, (req, res) => {
         })
         .catch(err => res.status(500).send({ message: err.message }));
 });
-// GET project by UserID
-router.get("/user/:id", verifyToken, async (req, res) => {
-    try {
-        // Get user ID from token (you need to implement this)
-        const userId = req.user.id; // Assuming you have middleware to extract user ID from token
+    // GET project by UserID
+    router.get("/user/:id", verifyToken, async (req, res) => {
+        try {
+            // Get user ID from token 
+            const userId = req.user.id; 
         
         // Query database to find projects where the user is either the owner or a contributor
         const projects = await Project.find({
@@ -43,6 +44,23 @@ router.get("/user/:id", verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
       }
     });
+
+    // GET column by project ID
+router.get("/:id/columns", verifyToken, async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const columns = await Column.find({ project: id });
+  
+      if (!columns || columns.length === 0) {
+        return res.status(404).send({ message: "Columns for project id=" + id + " not found" });
+      }
+  
+      res.send(columns);
+    } catch (err) {
+      res.status(500).send({ message: err.message });
+    }
+  });
 
 // POST create a new project
 router.post("/", verifyToken, (req, res) => {
