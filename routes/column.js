@@ -40,7 +40,7 @@ router.get("/:id/rows", verifyToken, async (req, res) => {
     }
   });
 //Post add row to columnID
-  router.post('/:id/rows', async (req, res) => {
+  router.post('/:id/rows', verifyToken, async (req, res) => {
     const id = req.params.id;
 
     const newRow = new Row({
