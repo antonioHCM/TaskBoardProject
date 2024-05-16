@@ -23,6 +23,7 @@ router.get("/:id", (req, res) => {
         })
         .catch(err => res.status(500).send({ message: err.message }));
 });
+//Get  rows by task ID
 router.get("/:id/rows", verifyToken, async (req, res) => {
     const id = req.params.id;
   
@@ -38,6 +39,26 @@ router.get("/:id/rows", verifyToken, async (req, res) => {
       res.status(500).send({ message: err.message });
     }
   });
+//Post add row to columnID
+  router.post('/:id/rows', async (req, res) => {
+    const id = req.params.id;
+
+    const newRow = new Row({
+        column: id,
+        description: req.body.description,
+        position: req.body.position,
+        content: req.body.content
+      });
+      try {
+        // Save the new row to the database
+        const savedRow = await newRow.save();
+        res.status(201).json(savedRow);
+      } catch (err) {
+        // Handle errors if row validation fails
+        res.status(400).json({ message: err.message });
+      }
+      
+    });
 
 // POST create a new column
 router.post("/", verifyToken, (req, res) => {
