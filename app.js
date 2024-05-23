@@ -38,7 +38,7 @@ mongoose.connection.once('open', () => console.log('Connected to the MongoDB dat
 
 //route
 app.get ("/api/welcome", (req, res) =>{
-    res.status(200).send({message: "Welcome to the MEN RESTful API"});
+    res.status(200).send({message: "Health check-Alive"});
 });
 
 // routes

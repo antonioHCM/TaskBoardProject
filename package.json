@@ -1,10 +1,10 @@
 {
-  "name": "2semesterproject",
+  "name": "taskboardproject",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit",
     "start": "nodemon app.js"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
     "bcrypt": "^5.1.1",
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv-flow": "^4.1.0",
     "express": "^4.19.2",
     "joi": "^17.12.2",
@@ -23,6 +24,9 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "chai": "^4.4.1",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.4.0",
     "nodemon": "^3.1.0"
   }
 }
