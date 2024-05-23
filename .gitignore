@@ -4,6 +4,7 @@
 /storage/*.key
 .env
 .env.backup
+.env.test
 npm-debug.log
 yarn-error.log
 /.idea
