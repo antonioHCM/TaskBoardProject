@@ -3,7 +3,6 @@ name: TaskBoard API CI/CD
 on:
   push:
     branches:
-      - main
       - test-branch
 
 jobs:
