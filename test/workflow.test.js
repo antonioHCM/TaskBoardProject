@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 const Project = require('../models/project');
 const User = require('../models/user');
 const mongoose = require('mongoose');
@@ -5,6 +7,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const app = require('../app');
+
 
 chai.use(chaiHttp);
 

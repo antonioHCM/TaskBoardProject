@@ -1,14 +1,17 @@
-name: TaksBoard API CI/CD
+name: TaskBoard API CI/CD
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - test-branch
 
 jobs:
   
   test:
     name: Test
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/test-branch'  # Run only for the test-branch
 
     strategy:
       matrix:
@@ -39,6 +42,7 @@ jobs:
     name: Deploy
     needs: [test]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Run only for the main branch
 
     steps:
       - name: Checkout
