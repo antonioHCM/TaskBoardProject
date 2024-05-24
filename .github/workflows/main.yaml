@@ -3,15 +3,14 @@ name: TaskBoard API CI/CD
 on:
   push:
     branches:
-      - main
-      - test-branch
+      - test_branch
 
 jobs:
   
   test:
     name: Test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/test-branch'  # Run only for the test-branch
+    if: github.ref == 'refs/heads/test_branch'  # Run only for the test_branch
 
     strategy:
       matrix:
