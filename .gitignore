@@ -5,6 +5,7 @@
 .env
 .env.backup
 .env.test
+.env.development
 npm-debug.log
 yarn-error.log
 /.idea
