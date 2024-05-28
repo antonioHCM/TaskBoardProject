@@ -61,14 +61,28 @@ router.get("/:id/rows", verifyToken, async (req, res) => {
       
     });
 
-// POST create a new column
-router.post("/", verifyToken, (req, res) => {
-    const columnData = req.body;
+// POST create a new column by projectID
+router.post('/newColumn', verifyToken, async (req, res) => {
+  try {
+      const { name, project, position } = req.body;
 
-    Column.create(columnData)
-        .then(data => res.send(data))
-        .catch(err => res.status(500).send({ message: err.message }));
+      // Create a new column instance
+      const newColumn = new Column({
+          name,
+          project,
+          position
+      });
+
+      await newColumn.save();
+
+      res.status(201).json({ message: 'Column created successfully', column: newColumn });
+  } catch (error) {
+      // Handle errors
+      console.error('Error creating column:', error);
+      res.status(500).json({ message: 'Failed to create column' });
+  }
 });
+
 
 // PUT update a column by ID
 router.put("/:id", verifyToken, (req, res) => {
