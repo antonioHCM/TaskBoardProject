@@ -74,12 +74,12 @@ router.post("/", verifyToken, (req, res) => {
 // POST create a new project
 router.post("/newProject", verifyToken, async (req, res) => {
   try {
-    const { name, userId, contributors } = req.body;
+    const { name, owner , contributors } = req.body;
 
     // Create a new project instance
     const newProject = new Project({
       name,
-      owner: userId, 
+      owner, 
       contributors,
     });
 
