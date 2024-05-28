@@ -23,6 +23,7 @@ router.get("/:id", (req, res) => {
         })
         .catch(err => res.status(500).send({ message: err.message }));
 });
+
 //Get  rows by column ID
 router.get("/:id/rows", verifyToken, async (req, res) => {
     const id = req.params.id;
