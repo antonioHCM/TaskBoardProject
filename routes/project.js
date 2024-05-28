@@ -84,8 +84,8 @@ router.post("/newProject", verifyToken, async (req, res) => {
     });
 
     await newProject.save();
-
-    res.status(201).json({ message: 'Project created successfully', project: newProject });
+    
+    res.status(201).json({ message: 'Project created successfully', projectID: newProject._id});
   } catch (error) {
     // Handle errors
     console.error('Error creating project:', error);
