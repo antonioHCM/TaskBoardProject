@@ -71,6 +71,28 @@ router.post("/", verifyToken, (req, res) => {
         .catch(err => res.status(500).send({ message: err.message }));
 });
 
+// POST create a new project
+router.post("/newProject", verifyToken, async (req, res) => {
+  try {
+    const { name, userId, contributors } = req.body;
+
+    // Create a new project instance
+    const newProject = new Project({
+      name,
+      owner: userId, 
+      contributors,
+    });
+
+    await newProject.save();
+
+    res.status(201).json({ message: 'Project created successfully', project: newProject });
+  } catch (error) {
+    // Handle errors
+    console.error('Error creating project:', error);
+    res.status(500).json({ message: 'Failed to create project' });
+  }
+});
+
 // PUT update a project by ID
 router.put("/:projectId", verifyToken, (req, res) => {
     const projectId = req.params.projectId;
